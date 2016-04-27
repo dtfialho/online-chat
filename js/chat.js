@@ -4,6 +4,10 @@ var random = Math.floor((Math.random() * 10) + 1);
 $(document).ready(function(){
 	var wsUri = "ws://192.168.2.99:9000/demo/server.php";
 	websocket = new WebSocket(wsUri);
+
+	$(window).on('focus',function(){
+		document.title = "Online Chat";
+	});
 	
 	websocket.onopen = function(ev) {
 		$('#message_box').append("<div class=\"system_msg\">Conectado!</div>");
@@ -27,6 +31,8 @@ $(document).ready(function(){
 			name: myname,
 			color : '#'+array_colors[random]
 		};
+
+		$('#mensagem').val('');
 		websocket.send(JSON.stringify(msg));
 	});
 	
@@ -40,13 +46,15 @@ $(document).ready(function(){
 		if(type == 'usermsg') 
 		{
 			$('#message_box').append("<div><span class=\"user_name\" style=\"color:#"+ucolor+"\">"+uname+"</span> : <span class=\"user_message\">"+umsg+"</span></div>");
+			if(uname !== $("#nome").val())
+			{
+				document.title = uname + " enviou uma mensagem";
+			}
 		}
 		if(type == 'system')
 		{
 			$('#message_box').append("<div class=\"system_msg\">"+umsg+"</div>");
 		}
-		
-		$('#mensagem').val('');
 	};
 	
 	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Ocorreu um erro - "+ev.data+"</div>");}; 
