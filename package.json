@@ -1,0 +1,41 @@
+{
+  "name": "online-chat",
+  "version": "2.0.0",
+  "description": "Uma aplicação de chat usando node.js e socket.io",
+  "scripts": {
+    "server": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtfialho/online-chat.git"
+  },
+  "keywords": [
+    "gulp",
+    "socket.io",
+    "chat",
+    "node.js"
+  ],
+  "author": "Diego T. Fialho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dtfialho/online-chat/issues"
+  },
+  "homepage": "https://github.com/dtfialho/online-chat#readme",
+  "dependencies": {
+    "jquery": "1.11.0",
+    "angular": "1.5.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-uglify": "^2.0.0",
+    "socket.io": "^1.5.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
