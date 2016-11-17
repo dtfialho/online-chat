@@ -1,0 +1,48 @@
+//breakpoints
+$mobile       = 480px
+$mobilemax    = 767px
+$tabletmin    = 768px
+$tabletmax    = 991px
+$desktopmin   = 992px
+$desktopmax   = 1199px
+$desktoplarge = 1200px
+
+
+//color variables
+$main       = #99D9EA
+$bordaChat  = #ff0303
+$branco     = #ffffff
+$fundoBotao = #337ab7
+$bordaBotao = #2e6da4
+
+html, body
+	height 100%
+
+body
+	background-color $main
+	margin 0
+	padding 0
+
+div, section, article, footer, header, nav, textarea
+	box-sizing border-box
+	
+#main-content
+	height 100%
+	padding 10px 15px 0
+	
+.btn
+	display inline-block
+	padding 6px 12px
+	margin-bottom 0
+	font-size 14px
+	text-align center
+	vertical-align middle
+	cursor pointer
+	border 1px solid transparent
+	border-radius 4px
+	background-color $fundoBotao
+	border-color $bordaBotao
+	color $branco
+	&:hover
+		background-color #286090
+		border-color #204d74

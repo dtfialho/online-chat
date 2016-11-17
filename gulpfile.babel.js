@@ -1,22 +1,23 @@
 'use strict';
 
-import path       from 'path';
-import gulp       from 'gulp';
-import babelify   from 'babelify';
-import browserify from 'browserify';
-import source     from 'vinyl-source-stream';
-import buffer     from 'vinyl-buffer';
-import plumber    from 'gulp-plumber';
-import uglify     from 'gulp-uglify';
-import sourcemaps from 'gulp-sourcemaps';
+import path        from 'path';
+import gulp        from 'gulp';
+import babelify    from 'babelify';
+import browserify  from 'browserify';
+import source      from 'vinyl-source-stream';
+import buffer      from 'vinyl-buffer';
+import plumber     from 'gulp-plumber';
+import uglify      from 'gulp-uglify';
+import sourcemaps  from 'gulp-sourcemaps';
+import stylus      from 'gulp-stylus';
 
 const dirs = {
 	src: path.join(__dirname, 'src'),
 	build: path.join(__dirname, 'build'),
 	js: path.join(__dirname, 'src', 'js'),
 	jsfinal: path.join(__dirname, 'build', 'js'),
-	stylus: path.join(__dirname, 'src', 'stylus'),
-	stylusfinal: path.join(__dirname, 'build', 'stylus'),
+	styl: path.join(__dirname, 'src', 'styl'),
+	stylfinal: path.join(__dirname, 'build', 'css'),
 	maps: path.join(__dirname, 'build', 'maps')
 };
 
@@ -56,4 +57,18 @@ gulp.task('jsApp', () => {
 		.pipe(gulp.dest(dirs.jsfinal));
 });
 
-gulp.task('default', ['jsApp', 'jsVendor']);
+gulp.task('stylus', () => {
+	return gulp.src(path.join(dirs.styl, 'main.styl'))
+	.pipe(plumber())
+	.pipe(stylus({
+		compress: true
+	}))
+	.pipe(gulp.dest(dirs.stylfinal))
+});
+
+gulp.task('watch', () => {
+	gulp.watch(path.join(dirs.js, '**/*.js'), ['jsApp', 'jsVendor']);
+	gulp.watch(path.join(dirs.styl, '**/*.styl'), ['stylus']);
+});
+
+gulp.task('default', ['watch']);

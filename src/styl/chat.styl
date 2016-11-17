@@ -1,0 +1,47 @@
+#chat
+	height 80vh
+	border 3px solid $bordaChat
+	border-radius 5px
+	padding 5px 15px
+	background-color $branco
+	
+#form-wrapper
+	height 15vh
+	padding 10px 0
+	.message-wrapper
+		column(10/12)
+		
+	.send-wrapper
+		column(2/12)
+		button
+			width 100%
+			min-height 50px
+
+	form
+		width 100%
+		textarea
+			width 100%
+			max-width 100%
+			display block
+			border-color #66afe9
+			outline 0
+			box-shadow inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+			resize none
+
+
+	@media (max-width $mobilemax)
+		.message-wrapper
+			column(9/12)
+		
+		.send-wrapper
+			column(3/12)
+
+	@media (max-width $mobile)
+		#send
+			width 400px
+			max-width 100%
+			display block
+			margin 10px auto 0
+
+		.message-wrapper, .send-wrapper
+			column(1/1)

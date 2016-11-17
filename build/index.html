@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<meta charset="UTF-8">
 	<title>Online Chat</title>
+	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-	<div id="chat"></div>
-	<form id="send-message">
-		<input type="text" id="message">
-		<input type="submit">
-	</form>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="/js/vendor.min.js"></script>
-	<script src="/js/app.min.js"></script>
+	<section id="main-content">
+		<div id="chat"></div>
+		<div id="form-wrapper">
+			<form id="send-message">
+				<div class="message-wrapper">
+					<textarea id="message" rows="3"></textarea>
+				</div>
+				<div class="send-wrapper">
+					<button type="submit" id="send" class="btn">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="socket.io/socket.io.js"></script>
+	<script src="js/vendor.min.js"></script>
+	<script src="js/app.min.js"></script>
 </body>
 </html>
