@@ -1,8 +1,6 @@
 'use strict';
 
-import jquery from 'jquery';
-
-window.$ = jquery;
+window.$ = require('jquery');
 
 $(document).ready(() => {
 	let socket       = io.connect();
