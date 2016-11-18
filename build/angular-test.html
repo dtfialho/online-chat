@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="chat">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<meta charset="UTF-8">
 	<title>Online Chat</title>
 	<link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-	<section id="main-content">
+<body ng-controller="MainController">
+	{{titulo}}
+	<!-- <section id="main-content">
 		<div id="chat"></div>
 		<div id="form-wrapper">
 			<form id="send-message">
@@ -19,9 +20,8 @@
 				</div>
 			</form>
 		</div>
-	</div>
+	</div> -->
 	
-	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/vendor.min.js"></script>
 	<script src="js/app.min.js"></script>
 </body>

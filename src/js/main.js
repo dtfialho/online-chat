@@ -14,6 +14,12 @@ $(document).ready(() => {
 		$messageBox.val('');
 	});
 
+	$messageBox.on('keyup', e => {
+		if(e.type == 13 && !e.shiftKey) {
+			$messageForm.triggerEvent('submit');
+		}
+	});
+
 	socket.on('new message', data => {
 		$chat.append(`${data} <br>`);
 	});

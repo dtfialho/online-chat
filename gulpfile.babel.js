@@ -44,6 +44,7 @@ gulp.task('jsVendor', () => {
 });
 
 gulp.task('jsApp', () => {
+	// return browserify(path.join(dirs.js, 'angular','main.js'))
 	return browserify(path.join(dirs.js, 'main.js'))
 		.external(deps)
 		.transform(babelify)
@@ -51,7 +52,7 @@ gulp.task('jsApp', () => {
 		.pipe(source('app.min.js'))
 		.pipe(plumber())
 		.pipe(buffer())
-		.pipe(uglify())
+		// .pipe(uglify())
 		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(sourcemaps.write(dirs.maps))
 		.pipe(gulp.dest(dirs.jsfinal));
@@ -70,5 +71,7 @@ gulp.task('watch', () => {
 	gulp.watch(path.join(dirs.js, '**/*.js'), ['jsApp', 'jsVendor']);
 	gulp.watch(path.join(dirs.styl, '**/*.styl'), ['stylus']);
 });
+
+gulp.task('build', ['jsApp', 'jsVendor', 'stylus']);
 
 gulp.task('default', ['watch']);
