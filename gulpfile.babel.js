@@ -23,7 +23,8 @@ const dirs = {
 
 const deps = [
 	'jquery',
-	'angular'
+	'angular',
+	'angular-route'
 ];
 
 gulp.task('jsVendor', () => {

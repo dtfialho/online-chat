@@ -1,9 +1,13 @@
 'use strict';
 
 const angular = require('angular');
+const ngRoute = require('angular-route');
 
-var app = angular.module('chat', []);
+import MainController  from './controllers/MainController';
+import { Config, Run } from './config';
 
-import MainController from './controllers/MainController';
+var app = angular.module('chat', [ngRoute]);
+app.config(Config);
+app.run(Run);
 
 app.controller('MainController', MainController);
