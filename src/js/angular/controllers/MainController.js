@@ -1,9 +1,5 @@
-class MainController {
-	contructor($scope) {
-		this.titulo = 'Esse é um fucking título!';
-
-		this.$inject = ['$scope'];
-	}
+let MainController = ($scope, $rootScope) => {
+	$scope.titulo = "Esse é um fucking título!";
 }
 
 export default MainController;

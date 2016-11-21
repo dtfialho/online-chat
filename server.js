@@ -12,6 +12,10 @@ app.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+app.get('/angular', function(req, res) {
+	res.sendFile(path.join(__dirname, 'build', 'angular-test.html'));
+});
+
 io.sockets.on('connection', function(socket) {
 	socket.on('send message', function(data) {
 		io.sockets.emit('new message', data);
