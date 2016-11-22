@@ -12,8 +12,22 @@ let Config = ($routeProvider) => {
 	});
 };
 
-let Run = ($rootScope) => {
-	$rootScope.userName = 'Kenshin';
+let Run = ($rootScope, LocalStorageService) => {
+	$rootScope.userName = '';
+	
+	$rootScope.getUserName = () => {
+		return $rootScope.userName;
+	};
+
+	$rootScope.setUserName = (name) => {
+		if(!name) {
+			if(LocalStorageService.exists('userName')) {
+				$rootScope.userName = LocalStorageService.get('userName');
+			}
+		} else {
+			LocalStorageService.set('userName', name);
+		}
+	};
 };
 
 export { Config, Run };

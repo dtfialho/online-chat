@@ -1,24 +1,30 @@
 'use strict';
 
-import path        from 'path';
-import gulp        from 'gulp';
-import babelify    from 'babelify';
-import browserify  from 'browserify';
-import source      from 'vinyl-source-stream';
-import buffer      from 'vinyl-buffer';
-import plumber     from 'gulp-plumber';
-import uglify      from 'gulp-uglify';
-import sourcemaps  from 'gulp-sourcemaps';
-import stylus      from 'gulp-stylus';
+import path       from 'path';
+import gulp       from 'gulp';
+import babelify   from 'babelify';
+import browserify from 'browserify';
+import source     from 'vinyl-source-stream';
+import buffer     from 'vinyl-buffer';
+import plumber    from 'gulp-plumber';
+import uglify     from 'gulp-uglify';
+import sourcemaps from 'gulp-sourcemaps';
+import stylus     from 'gulp-stylus';
+import htmlmin    from 'gulp-htmlmin';
+import imagemin   from 'gulp-imagemin';
 
 const dirs = {
-	src: path.join(__dirname, 'src'),
-	build: path.join(__dirname, 'build'),
-	js: path.join(__dirname, 'src', 'js'),
-	jsfinal: path.join(__dirname, 'build', 'js'),
-	styl: path.join(__dirname, 'src', 'styl'),
-	stylfinal: path.join(__dirname, 'build', 'css'),
-	maps: path.join(__dirname, 'build', 'maps')
+	src:        path.join(__dirname, 'src'),
+	build:      path.join(__dirname, 'build'),
+	js:         path.join(__dirname, 'src', 'js'),
+	jsfinal:    path.join(__dirname, 'build', 'js'),
+	styl:       path.join(__dirname, 'src', 'styl'),
+	stylfinal:  path.join(__dirname, 'build', 'css'),
+	maps:       path.join(__dirname, 'build', 'maps'),
+	views:      path.join(__dirname, 'src', 'views'),
+	viewsfinal: path.join(__dirname, 'build', 'views'),
+	img:        path.join(__dirname, 'src', 'img'),
+	imgfinal:   path.join(__dirname, 'build', 'img')
 };
 
 const deps = [
@@ -50,10 +56,10 @@ gulp.task('jsApp', () => {
 		.external(deps)
 		.transform(babelify)
 		.bundle()
-		.pipe(source('app.min.js'))
 		.pipe(plumber())
+		.pipe(source('app.min.js'))
 		.pipe(buffer())
-		// .pipe(uglify())
+		.pipe(uglify({mangle: false}))
 		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(sourcemaps.write(dirs.maps))
 		.pipe(gulp.dest(dirs.jsfinal));
@@ -68,11 +74,27 @@ gulp.task('stylus', () => {
 	.pipe(gulp.dest(dirs.stylfinal))
 });
 
+gulp.task('html', () => {
+	return gulp.src(path.join(dirs.views, '**/*.html'))
+	.pipe(plumber())
+	.pipe(htmlmin({collapseWhitespace: true}))
+	.pipe(gulp.dest(dirs.viewsfinal));
+});
+
+gulp.task('imagemin', () => {
+  return gulp.src(path.join(dirs.img, '**/*'))
+    .pipe(plumber())
+    .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+    .pipe(gulp.dest(dirs.imgfinal));
+});
+
 gulp.task('watch', () => {
 	gulp.watch(path.join(dirs.js, '**/*.js'), ['jsApp', 'jsVendor']);
 	gulp.watch(path.join(dirs.styl, '**/*.styl'), ['stylus']);
+	gulp.watch(path.join(dirs.views, '**/*.html'), ['html']);
+	gulp.watch(path.join(dirs.img, '**/*'), ['imagemin']);
 });
 
-gulp.task('build', ['jsApp', 'jsVendor', 'stylus']);
+gulp.task('build', ['jsApp', 'jsVendor', 'stylus', 'html', 'imagemin']);
 
 gulp.task('default', ['watch']);

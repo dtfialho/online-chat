@@ -1,4 +1,4 @@
-export default let Socket = ($rootScope) => {
+let Socket = ($rootScope) => {
 	let socket = io.connect();
 
 	return {
@@ -22,3 +22,5 @@ export default let Socket = ($rootScope) => {
 		}
 	};
 };
+
+export default Socket;
