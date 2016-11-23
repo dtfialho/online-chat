@@ -19,13 +19,14 @@ app.get('/angular', function(req, res) {
 });
 
 io.sockets.on('connection', function(socket) {
-	socket.on('new user', function(data, callback) {
+	socket.on('user:join', function(data, callback) {
 		if(userNames.indexOf(data) != -1) {
 			callback(false);
 		} else {
 			socket.userName = data;
 			userNames.push(data);
 			io.sockets.emit('usernames', userNames);
+			callback(true);
 		}
 	});
 

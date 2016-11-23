@@ -1,17 +1,18 @@
 'use strict';
 
-import path       from 'path';
-import gulp       from 'gulp';
-import babelify   from 'babelify';
-import browserify from 'browserify';
-import source     from 'vinyl-source-stream';
-import buffer     from 'vinyl-buffer';
-import plumber    from 'gulp-plumber';
-import uglify     from 'gulp-uglify';
-import sourcemaps from 'gulp-sourcemaps';
-import stylus     from 'gulp-stylus';
-import htmlmin    from 'gulp-htmlmin';
-import imagemin   from 'gulp-imagemin';
+import path         from 'path';
+import gulp         from 'gulp';
+import babelify     from 'babelify';
+import browserify   from 'browserify';
+import source       from 'vinyl-source-stream';
+import buffer       from 'vinyl-buffer';
+import plumber      from 'gulp-plumber';
+import uglify       from 'gulp-uglify';
+import sourcemaps   from 'gulp-sourcemaps';
+import stylus       from 'gulp-stylus';
+import htmlmin      from 'gulp-htmlmin';
+import imagemin     from 'gulp-imagemin';
+import autoprefixer from 'gulp-autoprefixer';
 
 const dirs = {
 	src:        path.join(__dirname, 'src'),
@@ -41,11 +42,14 @@ gulp.task('jsVendor', () => {
 	});
 
 	return b.bundle()
+		.on('error', (err) => {
+			console.log(err.toString())
+		})
 		.pipe(plumber())
 		.pipe(source('vendor.min.js'))
 		.pipe(buffer())
 		.pipe(uglify())
-		.pipe(sourcemaps.init({loadMaps: true}))
+		.pipe(sourcemaps.init({ loadMaps: true }))
 		.pipe(sourcemaps.write(dirs.maps))
 		.pipe(gulp.dest(dirs.jsfinal));
 });
@@ -59,8 +63,8 @@ gulp.task('jsApp', () => {
 		.pipe(plumber())
 		.pipe(source('app.min.js'))
 		.pipe(buffer())
-		.pipe(uglify({mangle: false}))
-		.pipe(sourcemaps.init({loadMaps: true}))
+		.pipe(uglify({ mangle: false }))
+		.pipe(sourcemaps.init({ loadMaps: true }))
 		.pipe(sourcemaps.write(dirs.maps))
 		.pipe(gulp.dest(dirs.jsfinal));
 });
@@ -71,13 +75,14 @@ gulp.task('stylus', () => {
 	.pipe(stylus({
 		compress: true
 	}))
+	.pipe(autoprefixer({ browsers: ['last 2 versions'] }))
 	.pipe(gulp.dest(dirs.stylfinal))
 });
 
 gulp.task('html', () => {
 	return gulp.src(path.join(dirs.views, '**/*.html'))
 	.pipe(plumber())
-	.pipe(htmlmin({collapseWhitespace: true}))
+	.pipe(htmlmin({ collapseWhitespace: true }))
 	.pipe(gulp.dest(dirs.viewsfinal));
 });
 

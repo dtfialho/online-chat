@@ -2,18 +2,18 @@ let Socket = ($rootScope) => {
 	let socket = io.connect();
 
 	return {
-		on: function (eventName, callback) {
-			socket.on(eventName, function () {  
+		on: (eventName, callback) => {
+			socket.on(eventName, () => {
 				var args = arguments;
-				$rootScope.$apply(function () {
+				$rootScope.$apply(() => {
 					callback.apply(socket, args);
 				});
 			});
 		},
-		emit: function (eventName, data, callback) {
-			socket.emit(eventName, data, function () {
+		emit: (eventName, data, callback) => {
+			socket.emit(eventName, data, () => {
 				var args = arguments;
-				$rootScope.$apply(function () {
+				$rootScope.$apply(() => {
 					if (callback) {
 						callback.apply(socket, args);
 					}

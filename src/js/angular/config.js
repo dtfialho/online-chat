@@ -1,10 +1,10 @@
 let Config = ($routeProvider) => {
 	$routeProvider.when('/', {
-		controller: 'MainController',
+		controller: 'LoginController',
 		templateUrl: 'views/home.html'
 	})
 	.when('/chat', {
-		controller: 'MainController',
+		controller: 'ChatController',
 		templateUrl: 'views/chat.html'
 	})
 	.otherwise({
@@ -12,7 +12,7 @@ let Config = ($routeProvider) => {
 	});
 };
 
-let Run = ($rootScope, LocalStorageService) => {
+let Run = ($rootScope, $window) => {
 	$rootScope.userName = '';
 	
 	$rootScope.getUserName = () => {
@@ -21,11 +21,17 @@ let Run = ($rootScope, LocalStorageService) => {
 
 	$rootScope.setUserName = (name) => {
 		if(!name) {
-			if(LocalStorageService.exists('userName')) {
-				$rootScope.userName = LocalStorageService.get('userName');
+			if($window.localStorage.getItem('userName') !== '' 
+				&& $window.localStorage.getItem('userName') !== undefined 
+				&& $window.localStorage.getItem('userName') !== null) {
+				$rootScope.userName = $window.localStorage.getItem('userName');
 			}
 		} else {
-			LocalStorageService.set('userName', name);
+			if(!$window.localStorage.getItem('userName')) {
+				$window.localStorage.setItem('userName', name);
+			} else {
+				$window.localStorage.userName = name;
+			}
 		}
 	};
 };
