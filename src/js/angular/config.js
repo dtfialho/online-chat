@@ -12,9 +12,14 @@ let Config = ($routeProvider) => {
 	});
 };
 
-let Run = ($rootScope, $window) => {
+let Run = ($rootScope, $window, SocketService) => {
 	$rootScope.userName = '';
+	$rootScope.users = [];
 	
+	SocketService.on('usernames', (data) => {
+		$rootScope.users = data;
+	});
+
 	$rootScope.getUserName = () => {
 		return $rootScope.userName;
 	};

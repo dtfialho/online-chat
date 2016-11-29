@@ -1,11 +1,7 @@
-let LoginController = ($scope, $rootScope, $timeout, SocketService) => {
+let LoginController = ($scope, $rootScope, $timeout, $location, SocketService) => {
 	$scope.titulo = "Esse é um fucking título!";
 	$scope.name = '';
 	$scope.invalidUser = false;
-
-	SocketService.on('usernames', (data) => {
-		console.log(data);
-	});
 
 	$scope.verifyUser = () => {
 		if($scope.name !== null && $scope.name !== '') {
@@ -18,10 +14,10 @@ let LoginController = ($scope, $rootScope, $timeout, SocketService) => {
 							$scope.invalidUser = true;
 						}, 100);
 					} else {
-						$timeout(() => {
-							$scope.invalidUser = false;
-						}, 100);
 						$rootScope.setUserName($scope.name);
+						$timeout(() => {
+							$location.path('/chat');
+						});
 					}
 				}
 			);
