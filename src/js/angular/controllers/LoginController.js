@@ -1,6 +1,7 @@
-let LoginController = ($scope, $rootScope, SocketService) => {
+let LoginController = ($scope, $rootScope, $timeout, SocketService) => {
 	$scope.titulo = "Esse é um fucking título!";
 	$scope.name = '';
+	$scope.invalidUser = false;
 
 	SocketService.on('usernames', (data) => {
 		console.log(data);
@@ -13,8 +14,13 @@ let LoginController = ($scope, $rootScope, SocketService) => {
 				$scope.name,
 				(data) => {
 					if(!data) {
-						console.log('erro');
+						$timeout(() => {
+							$scope.invalidUser = true;
+						}, 100);
 					} else {
+						$timeout(() => {
+							$scope.invalidUser = false;
+						}, 100);
 						$rootScope.setUserName($scope.name);
 					}
 				}

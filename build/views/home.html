@@ -1,1 +1,1 @@
-<div class="form-login"><h2>Online Chat</h2><p>{{userName}}</p><form ng-submit="verifyUser($event)"><label for="name">Enter your name</label><input type="text" ng-model="name"> <button class="btn">Enter</button></form></div>
+<div class="form-login"><h2>Online Chat</h2><p>{{userName}}</p><div class="alertName" ng-if="invalidUser">The choosen user name is allready in use.</div><form ng-submit="verifyUser($event)"><label for="name">Enter your name</label><input type="text" ng-model="name"> <button class="btn">Enter</button></form></div>

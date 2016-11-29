@@ -3,21 +3,13 @@ let Socket = ($rootScope) => {
 
 	return {
 		on: (eventName, callback) => {
-			socket.on(eventName, () => {
-				var args = arguments;
-				$rootScope.$apply(() => {
-					callback.apply(socket, args);
-				});
-			});
+			socket.on(eventName, callback);
 		},
 		emit: (eventName, data, callback) => {
-			socket.emit(eventName, data, () => {
-				var args = arguments;
-				$rootScope.$apply(() => {
-					if (callback) {
-						callback.apply(socket, args);
-					}
-				});
+			socket.emit(eventName, data, (res) => {
+				if (callback) {
+					callback(res);
+				}
 			})
 		}
 	};
