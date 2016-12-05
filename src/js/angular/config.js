@@ -12,9 +12,15 @@ let Config = ($routeProvider) => {
 	});
 };
 
-let Run = ($rootScope, $window, SocketService) => {
+let Run = ($rootScope, $window, $location, SocketService) => {
 	$rootScope.userName = '';
 	$rootScope.users = [];
+
+	$rootScope.$on('$routeChangeStart', () => {
+		if($rootScope.getUserName() === '' && ($window.localStorage.getItem('userName') === '' || $window.localStorage.getItem('userName') === undefined || $window.localStorage.getItem('userName') === null)) {
+			$location.path('/');
+		}
+    });
 	
 	SocketService.on('usernames', (data) => {
 		$rootScope.users = data;

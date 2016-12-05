@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Uma aplicação de chat usando node.js e socket.io",
   "scripts": {
-    "server": "node server.js"
+    "server": "node server.js | start chrome http://localhost:9090/"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "jquery": "1.11.0",
     "angular": "1.5.8",
     "angular-route": "1.5.8",
+    "angular-sanitize": "^1.5.9",
     "jeet": "^7.0.0"
   },
   "devDependencies": {
@@ -41,7 +42,6 @@
     "gulp-sourcemaps": "^2.2.0",
     "gulp-stylus": "^2.6.0",
     "gulp-uglify": "^2.0.0",
-    "gulp-util": "^3.0.7",
     "socket.io": "^1.5.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"

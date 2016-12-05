@@ -31,6 +31,13 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('send message', function(data) {
-		io.sockets.emit('new message', data);
+		var msg = '<strong>' + socket.userName + '</strong>: ' + data;
+		io.sockets.emit('new message', msg);
+	});
+
+	socket.on('disconnect', function(data) {
+		if(!socket.userName) return;
+		userNames.splice(userNames.indexOf(socket.nickname), 1);
+		io.sockets.emit('usernames', userNames);
 	});
 });

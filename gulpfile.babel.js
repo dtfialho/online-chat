@@ -31,7 +31,8 @@ const dirs = {
 const deps = [
 	'jquery',
 	'angular',
-	'angular-route'
+	'angular-route',
+	'angular-sanitize'
 ];
 
 gulp.task('jsVendor', () => {

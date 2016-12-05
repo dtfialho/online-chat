@@ -1,7 +1,8 @@
 'use strict';
 
-const angular = require('angular');
-const ngRoute = require('angular-route');
+const angular    = require('angular');
+const ngRoute    = require('angular-route');
+const ngSanitize = require('angular-sanitize');
 
 // App config
 import { Config, Run } from './config';
@@ -13,7 +14,7 @@ import ChatController  from './controllers/ChatController';
 // App Services
 import Socket from './services/SocketService';
 
-var app = angular.module('chat', [ngRoute]);
+var app = angular.module('chat', [ngRoute, ngSanitize]);
 
 app.config(Config);
 app.run(Run);

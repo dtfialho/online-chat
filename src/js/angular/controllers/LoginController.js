@@ -1,5 +1,4 @@
 let LoginController = ($scope, $rootScope, $timeout, $location, SocketService) => {
-	$scope.titulo = "Esse é um fucking título!";
 	$scope.name = '';
 	$scope.invalidUser = false;
 
@@ -15,9 +14,10 @@ let LoginController = ($scope, $rootScope, $timeout, $location, SocketService) =
 						}, 100);
 					} else {
 						$rootScope.setUserName($scope.name);
+						console.log('lorem');
 						$timeout(() => {
 							$location.path('/chat');
-						});
+						}, 100);
 					}
 				}
 			);
