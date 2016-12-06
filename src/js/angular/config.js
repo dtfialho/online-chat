@@ -1,26 +1,21 @@
-let Config = ($routeProvider) => {
+let Config = ($routeProvider, $locationProvider) => {
 	$routeProvider.when('/', {
-		controller: 'LoginController',
-		templateUrl: 'views/home.html'
-	})
-	.when('/chat', {
 		controller: 'ChatController',
 		templateUrl: 'views/chat.html'
 	})
 	.otherwise({
 		redirectTo: '/'
 	});
+
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	});
 };
 
-let Run = ($rootScope, $window, $location, SocketService) => {
+let Run = ($rootScope, $location, SocketService) => {
 	$rootScope.userName = '';
 	$rootScope.users = [];
-
-	$rootScope.$on('$routeChangeStart', () => {
-		if($rootScope.getUserName() === '' && ($window.localStorage.getItem('userName') === '' || $window.localStorage.getItem('userName') === undefined || $window.localStorage.getItem('userName') === null)) {
-			$location.path('/');
-		}
-    });
 	
 	SocketService.on('usernames', (data) => {
 		$rootScope.users = data;
@@ -31,19 +26,7 @@ let Run = ($rootScope, $window, $location, SocketService) => {
 	};
 
 	$rootScope.setUserName = (name) => {
-		if(!name) {
-			if($window.localStorage.getItem('userName') !== '' 
-				&& $window.localStorage.getItem('userName') !== undefined 
-				&& $window.localStorage.getItem('userName') !== null) {
-				$rootScope.userName = $window.localStorage.getItem('userName');
-			}
-		} else {
-			if(!$window.localStorage.getItem('userName')) {
-				$window.localStorage.setItem('userName', name);
-			} else {
-				$window.localStorage.userName = name;
-			}
-		}
+		$rootScope.userName = name;
 	};
 };
 

@@ -20,7 +20,7 @@ app.get('/angular', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
 	socket.on('user:join', function(data, callback) {
-		if(userNames.indexOf(data) != -1) {
+		if(data in userNames) {
 			callback(false);
 		} else {
 			socket.userName = data;
@@ -37,7 +37,7 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('disconnect', function(data) {
 		if(!socket.userName) return;
-		userNames.splice(userNames.indexOf(socket.nickname), 1);
+		userNames.splice(userNames.indexOf(socket.userName), 1);
 		io.sockets.emit('usernames', userNames);
 	});
 });
