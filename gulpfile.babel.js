@@ -56,8 +56,7 @@ gulp.task('jsVendor', () => {
 });
 
 gulp.task('jsApp', () => {
-	return browserify(path.join(dirs.js, 'angular','app.js'))
-	// return browserify(path.join(dirs.js, 'main.js'))
+	return browserify(path.join(dirs.js, 'app.js'))
 		.external(deps)
 		.transform(babelify)
 		.bundle()
