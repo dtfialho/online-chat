@@ -14,13 +14,9 @@ app.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.get('/angular', function(req, res) {
-	res.sendFile(path.join(__dirname, 'build', 'angular-test.html'));
-});
-
 io.sockets.on('connection', function(socket) {
 	socket.on('user:join', function(data, callback) {
-		if(data in userNames) {
+		if(userNames.indexOf(data) != -1) {
 			callback(false);
 		} else {
 			socket.userName = data;
@@ -37,6 +33,8 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('disconnect', function(data) {
 		if(!socket.userName) return;
+		var msg = '<small><em>User <strong>' + socket.userName + '</strong> has left the room.</em></small>';
+		io.sockets.emit('new message', msg);
 		userNames.splice(userNames.indexOf(socket.userName), 1);
 		io.sockets.emit('usernames', userNames);
 	});
