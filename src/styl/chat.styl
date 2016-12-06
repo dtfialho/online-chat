@@ -25,7 +25,21 @@
 		font-size 12px
 		margin-bottom 15px
 
+#chat_window
+	> div:nth-child(2n)
+		margin-right 0
+
+#users_list
+	column(2/12)
+	height 100%
+	#showHide_users
+		text-align center
+		padding 5px
+		h4
+			margin 0
+
 #chat
+	column(10/12)
 	height 80vh
 	border 3px solid $bordaChat
 	border-radius 5px
@@ -37,6 +51,8 @@
 #form-wrapper
 	height 15vh
 	padding 10px 0
+	display table
+	width 100%
 	.message-wrapper
 		column(10/12)
 		

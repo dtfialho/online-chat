@@ -19,7 +19,10 @@ io.sockets.on('connection', function(socket) {
 		if(userNames.indexOf(data) != -1) {
 			callback(false);
 		} else {
+			var msg = '<small><em>User <strong>' + data + '</strong> has joined the room.</em></small>';
 			socket.userName = data;
+
+			io.sockets.emit('new message', msg);
 			userNames.push(data);
 			io.sockets.emit('usernames', userNames);
 			callback(true);
