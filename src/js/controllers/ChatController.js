@@ -7,11 +7,20 @@ let ChatController = ($scope, $rootScope, $timeout, $location, SocketService) =>
 	$scope.selectedUser = null;
 
 	SocketService.on('new message', (data) => {
-		$timeout(() => {
-			$scope.messages.push(data);
-		});
+		if($scope.name !== '') {
+			$timeout(() => {
+				$scope.messages.push(data);
+			});
+		}
 	});
 
+	SocketService.on('private message', (data) => {
+		if($scope.name !== '') {
+			$timeout(() => {
+				$scope.messages.push(data);
+			});
+		}
+	});
 
 	$scope.verifyUser = () => {
 		if($scope.name !== null && $scope.name !== '') {
@@ -34,7 +43,7 @@ let ChatController = ($scope, $rootScope, $timeout, $location, SocketService) =>
 	$scope.submitMsg = (e) => {
 		if((e.type === 'keyup' && e.keyCode === 13 && !e.shiftKey) || e.type === 'submit') {
 			e.preventDefault();
-			SocketService.emit('send message', $scope.message);
+			SocketService.emit('send message', {user: $scope.selectedUser, msg: $scope.message});
 			$scope.message = '';
 		}
 	}

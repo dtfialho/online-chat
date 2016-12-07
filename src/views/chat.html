@@ -20,11 +20,14 @@
 				</div>
 				<div class="users_wrapper" ng-class="{open: showUsers}">
 					<div class="user_block" ng-class="{selected: user === selectedUser}" ng-repeat="user in users" ng-click="selectUser(user)">
-						{{user}}
+						{{::user}}
 					</div>
 				</div>
 			</div>
 			<div id="chat">
+				<div ng-if="selectedUser" class="alert_private">
+					<small>You are sending private messages to: <strong>{{ selectedUser }}</strong>.</small>
+				</div>
 				<div ng-repeat="msg in messages track by $index">
 					<span ng-bind-html="msg"></span>
 					<br>
