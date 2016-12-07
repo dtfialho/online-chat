@@ -27,13 +27,16 @@
 
 .users_list
 	column(2/12)
-	height 100%
 	background-color #efefef
 	padding 0 5px
 	color #333
+	@media (min-width $tabletmin)
+		height 80vh
+
 	@media (max-width $mobilemax)
 		column(1/1)
 		margin-bottom 15px
+		margin-right 0
 		.users_wrapper
 			display none
 			&.open
@@ -75,6 +78,7 @@
 	background-color $branco
 	@media (max-width $mobilemax)
 		height 420px
+		width 100%
 
 #form-wrapper
 	height 15vh
@@ -113,7 +117,7 @@
 
 	@media (max-width $mobile)
 		#send
-			width 400px
+			width 100%
 			max-width 100%
 			display block
 			margin 10px auto 0
