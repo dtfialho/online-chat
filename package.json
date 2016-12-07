@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/dtfialho/online-chat#readme",
   "dependencies": {
-    "jquery": "1.11.0",
     "angular": "1.5.8",
     "angular-route": "1.5.8",
     "angular-sanitize": "1.5.9",

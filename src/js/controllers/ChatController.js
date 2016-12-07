@@ -3,6 +3,8 @@ let ChatController = ($scope, $rootScope, $timeout, $location, SocketService) =>
 	$scope.message = '';
 	$scope.name = '';
 	$scope.invalidUser = false;
+	$scope.showUsers = false;
+	$scope.selectedUser = null;
 
 	SocketService.on('new message', (data) => {
 		$timeout(() => {
@@ -36,6 +38,16 @@ let ChatController = ($scope, $rootScope, $timeout, $location, SocketService) =>
 			$scope.message = '';
 		}
 	}
+
+	$scope.showHideUsers = () => {
+		$scope.showUsers = !$scope.showUsers;
+	};
+
+	$scope.selectUser = (user) => {
+		if(user !== $rootScope.getUserName()) {
+			$scope.selectedUser = (user === $scope.selectedUser) ? null : user;
+		}
+	};
 }
 
 export default ChatController;

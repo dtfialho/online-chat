@@ -29,7 +29,6 @@ const dirs = {
 };
 
 const deps = [
-	'jquery',
 	'angular',
 	'angular-route',
 	'angular-sanitize'

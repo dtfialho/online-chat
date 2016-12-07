@@ -7,15 +7,15 @@
 	h2
 		font-style italic
 		text-align center
-	
+
 	label
 		text-align center
 		margin-bottom 2px
-		
+
 	.btn
 		display block
 		margin 10px auto 0
-		
+
 	.alertName
 		color #a94442
 		background #f2dede
@@ -25,18 +25,46 @@
 		font-size 12px
 		margin-bottom 15px
 
-#chat_window
-	> div:nth-child(2n)
-		margin-right 0
-
-#users_list
+.users_list
 	column(2/12)
 	height 100%
-	#showHide_users
+	background-color #efefef
+	padding 0 5px
+	color #333
+	@media (max-width $mobilemax)
+		column(1/1)
+		margin-bottom 15px
+		.users_wrapper
+			display none
+			&.open
+				display block
+
+	.showHide_users
 		text-align center
 		padding 5px
+		border-bottom 1px solid #999
+		cursor default
+		@media (max-width $mobilemax)
+			cursor pointer
+
 		h4
 			margin 0
+			display inline-block
+
+		img
+			float right
+			width 30px
+			display none
+			@media (max-width $mobilemax)
+				display block
+
+	.user_block
+		padding 5px
+		background-color #fff
+		border-bottom 1px solid #ccc
+		cursor pointer
+		&.selected
+			background-color #dedede
 
 #chat
 	column(10/12)
@@ -47,15 +75,18 @@
 	background-color $branco
 	@media (max-width $mobilemax)
 		height 420px
-	
+
 #form-wrapper
 	height 15vh
 	padding 10px 0
 	display table
 	width 100%
+	@media (max-width $mobilemax)
+		column(1/1)
+
 	.message-wrapper
 		column(10/12)
-		
+
 	.send-wrapper
 		column(2/12)
 		button
@@ -73,11 +104,10 @@
 			box-shadow inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
 			resize none
 
-
 	@media (max-width $mobilemax)
 		.message-wrapper
 			column(9/12)
-		
+
 		.send-wrapper
 			column(3/12)
 
